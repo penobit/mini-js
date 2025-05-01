@@ -17,7 +17,7 @@ You can include the script in your HTML file using either method:
 
 1. Using jsDelivr CDN:
 ```html
-<script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
 ```
 
 2. Or self-host the file:
@@ -145,7 +145,7 @@ Here's a complete example of a counter application:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>mini.js Counter Example</title>
-    <script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
 </head>
 <body>
     <div mini:module="counter">
