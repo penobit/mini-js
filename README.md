@@ -8,7 +8,7 @@ A lightweight JavaScript library that brings two-way data binding and state mana
 - Reactive state management
 - Computed properties
 - Customizable bindings (text, HTML, attributes, model)
-- Module-based architecture
+- Module-based architecture with nested modules support
 - Zero dependencies
 
 ## Installation
@@ -22,7 +22,7 @@ You can include the script in your HTML file using either method:
 
 2. Or self-host the file:
 ```html
-<script src="mini.js"></script>
+<script src="mini.min.js"></script>
 ```
 
 ## Usage
@@ -134,9 +134,9 @@ state.watchAll((prop, value) => {
 });
 ```
 
-## Example
+## Basic Example
 
-Here's a complete example of a counter application:
+Here's a simple counter application to get you started:
 
 ```html
 <!DOCTYPE html>
@@ -160,7 +160,7 @@ Here's a complete example of a counter application:
     </div>
 
     <script defer>
-    const state = mini.module('counter', {
+    const {state} = mini.module('counter', {
         state: {
             message: 'Counter App',
             count: 0,
@@ -172,11 +172,93 @@ Here's a complete example of a counter application:
         }
     });
 
-    const increase = () => state.count = ~~state.count + 1
-    const decrease = () => state.count = ~~state.count - 1
+    const increase = () => state.count = ~~state.count + 1;
+    const decrease = () => state.count = ~~state.count - 1;
 
-    state.watch('count', count => console.log('state->update count: ', count))
-    state.watch('isPositive', count => console.log('state->update isPositive: ', count))
+    state.watch('count', count => console.log('Counter updated:', count));
+    state.watch('isPositive', value => console.log('Count status:', value));
+    </script>
+</body>
+</html>
+```
+
+## Advanced Example
+
+Here's a more complex example demonstrating nested modules:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>mini.js Nested Modules Example</title>
+    <script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
+</head>
+<body>
+    <div mini:module="app">
+        <h1 mini:bind="title"></h1>
+        
+        <!-- Counter Module -->
+        <div mini:module="counter">
+            <h2>Counter</h2>
+            <p>Count: <span mini:bind="count"></span></p>
+            <label for="count-input">Count:</label>
+            <input id="count-input" mini:model="count" type="number" />
+            <button onclick="increase()">Increment</button>
+            <button onclick="decrease()">Decrement</button>
+
+            <span penobit:bind="isPositive"></span>
+        </div>
+
+        <!-- User Module -->
+        <div mini:module="user">
+            <h2>User Info</h2>
+            <p>Name: <span mini:bind="name"></span></p>
+            <input mini:model="name" type="text" placeholder="Enter your name" />
+            
+            <p>Age: <span mini:bind="age"></span></p>
+            <input mini:model="age" type="number" min="0" />
+        </div>
+    </div>
+
+    <script defer>
+    // Main app module
+    const app = mini.module('app', {
+        state: {
+            title: 'mini.js Nested Modules Demo'
+        }
+    });
+
+    // Counter module
+    const counter = mini.module('counter', {
+        state: {
+            count: 0,
+            
+            // Computed property
+            compute: {
+                isPositive: (state) => state.count === 0 ? 'zero' : (state.count > 0 ? 'positive' : 'negative')
+            }
+        }
+    });
+
+    // User module
+    const user = mini.module('user', {
+        state: {
+            name: '',
+            age: 0
+        }
+    });
+
+    // Counter module functions
+    const increase = () => counter.count = ~~counter.count + 1;
+    const decrease = () => counter.count = ~~counter.count - 1;
+
+    // Watchers
+    counter.watch('count', count => console.log('Counter updated:', count));
+    counter.watch('isPositive', value => console.log('Count status:', value));
+    user.watch('name', name => console.log('User name changed:', name));
+    user.watch('age', age => console.log('User age changed:', age));
     </script>
 </body>
 </html>
