@@ -1,14 +1,29 @@
 import { isObject } from "./helpers";
 
 /**
- * Creates a deep proxy of an object that notifies the outside world when a property changes
- * @param {Object} obj - The object to proxy
+ * Creates a reactive state object for mini.js framework
+ * @param {Object} initialState - The initial state object
  * @param {Function} notify - A callback that will be called when a property changes
  * @param {String} [path=""] - The path of the property (used for nested objects)
- * @return {Object} - The proxy object with reactive capabilities
- * @throws {TypeError} - If obj is not an object
+ * @return {Object} - The reactive state object with the following methods:
+ * @return {Object.watch} - Watch a state property for changes
+ * @return {Object.unwatch} - Remove a watcher from a state property
+ * @return {Object.watchAll} - Watch all state properties for changes
+ * @return {Object.compute} - Create computed properties that react to state changes
+ * @throws {TypeError} - If initialState is not an object
+ * @example
+ * // Create a reactive state
+ * const state = createState({
+ *   count: 0,
+ *   double: computed(() => state.count * 2)
+ * });
+ * 
+ * // Watch for changes
+ * state.watch('count', (newVal, oldVal) => {
+ *   console.log(`Count changed from ${oldVal} to ${newVal}`);
+ * });
  */
-export function deepProxy(obj, notify, path = "") {
+export function createState(initialState, notify, path = "") {
     /**
      * A map of property names to their respective watcher sets
      * @type {Map<String, Set<Function>>}
@@ -109,6 +124,6 @@ export function deepProxy(obj, notify, path = "") {
      * Create the proxy object
      * @type {Object}
      */
-    proxy = new Proxy(obj, handler);
+    proxy = new Proxy(initialState, handler);
     return proxy;
   }

@@ -3,7 +3,7 @@
  * @module mini
  */
 
-import { deepProxy } from './proxy.js';
+import { createState } from './state.js';
 import { bindDOM } from './binders/dom.js';
 
 /**
@@ -36,7 +36,7 @@ const mini = {
     if (!root) throw new Error(`No root element found for module: ${name}`);
 
     // Define notify after defining the state
-    const state = deepProxy(options.state || {}, () => {}, "");
+    const state = createState(options.state || {}, () => {}, "");
     bindDOM.call(state, name, root);
 
     return state;
