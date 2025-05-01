@@ -15,19 +15,81 @@ A lightweight JavaScript library that brings two-way data binding and state mana
 
 ## Installation
 
-You can include the script in your HTML file using either method:
+mini.js can be used in three different ways:
 
-1. Using jsDelivr CDN:
-```html
-<script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
+### Option 1: Package Manager
+
+Install using npm or yarn:
+
+```bash
+npm install mini-js
+# or
+yarn add mini-js
 ```
 
-2. Or self-host the file:
+Then import it in your JavaScript file:
+```javascript
+import mini from 'mini-js';
+```
+
+### Option 2: CDN
+
+Use the jsDelivr CDN to include mini.js in your HTML:
+
 ```html
-<script src="mini.min.js"></script>
+<script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/dist/mini.umd.js"></script>
+```
+
+### Option 3: Build and Use
+
+1. Clone the repository:
+```bash
+git clone https://github.com/penobit/mini-js.git
+```
+
+2. Install dependencies:
+```bash
+npm install
+# or
+yarn
+```
+
+3. Build the project:
+```bash
+npm run build
+# or
+yarn build
+```
+
+4. Use the built file from the `dist` directory:
+```html
+<script src="dist/mini.umd.js"></script>
 ```
 
 ## Usage
+
+### Running Examples
+
+To run the examples, follow these steps:
+
+1. Install dependencies:
+```bash
+npm install
+# or
+yarn
+```
+
+2. Start the development server:
+```bash
+npm run dev
+# or
+yarn dev
+```
+
+3. Access the examples through the development server:
+
+   - Counter Example: http://localhost:3000/examples/counter.html
+   - Nested Modules Example: http://localhost:3000/examples/nested-modules.html
 
 ### Basic Setup
 
@@ -64,7 +126,7 @@ mini.module('app', {
 ```html
 <!-- Use template literals with reactive variables -->
 <p mini:reactive>
-  Count: {{count}}
+  Count: {count}
 </p>
 
 <!-- Output: Count: 0 -->
@@ -78,7 +140,7 @@ mini.module('app', {
 
 <!-- Bind with reactive template -->
 <div mini:reactive mini:html>
-  <p>Count: {{count}}</p>
+  <p>Count: {count}</p>
 </div>
 ```
 
@@ -136,135 +198,14 @@ state.watchAll((prop, value) => {
 });
 ```
 
-## Basic Example
+## Examples
 
-Here's a simple counter application to get you started:
+Check out the following example files in the [examples](https://github.com/penobit/mini-js/tree/main/examples) directory:
 
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mini.js Counter Example</title>
-    <script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
-</head>
-<body>
-    <div mini:module="counter">
-        <h1 mini:bind="message"></h1>
-        <p>Count: <span mini:bind="count"></span></p>
-        <label for="count-input">Count:</label>
-        <input id="count-input" mini:model="count" type="number" />
-        <button onclick="increase()">Increment</button>
-        <button onclick="decrease()">Decrement</button>
+1. [counter.html](https://github.com/penobit/mini-js/blob/main/examples/counter.html) - A simple counter application demonstrating basic state management and computed properties
+2. [nested-modules.html](https://github.com/penobit/mini-js/blob/main/examples/nested-modules.html) - A more complex example showing nested modules and module hierarchy
 
-        <span penobit:bind="isPositive"></span>
-    </div>
-
-    <script defer>
-    const state = mini.module('counter', {
-        state: {
-            message: 'Counter App',
-            count: 0,
-            
-            // Computed property
-            compute: {
-                isPositive: (state) => state.count === 0 ? 'zero' : (state.count > 0 ? 'positive' : 'negative')
-            }
-        }
-    });
-
-    const increase = () => state.count = ~~state.count + 1;
-    const decrease = () => state.count = ~~state.count - 1;
-
-    state.watch('count', count => console.log('Counter updated:', count));
-    state.watch('isPositive', value => console.log('Count status:', value));
-    </script>
-</body>
-</html>
-```
-
-## Advanced Example
-
-Here's a more complex example demonstrating nested modules:
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>mini.js Nested Modules Example</title>
-    <script src="https://cdn.jsdelivr.net/gh/penobit/mini-js@main/mini.min.js"></script>
-</head>
-<body>
-    <div mini:module="app">
-        <h1 mini:bind="title"></h1>
-        
-        <!-- Counter Module -->
-        <div mini:module="counter">
-            <h2>Counter</h2>
-            <p>Count: <span mini:bind="count"></span></p>
-            <label for="count-input">Count:</label>
-            <input id="count-input" mini:model="count" type="number" />
-            <button onclick="increase()">Increment</button>
-            <button onclick="decrease()">Decrement</button>
-
-            <span penobit:bind="isPositive"></span>
-        </div>
-
-        <!-- User Module -->
-        <div mini:module="user">
-            <h2>User Info</h2>
-            <p>Name: <span mini:bind="name"></span></p>
-            <input mini:model="name" type="text" placeholder="Enter your name" />
-            
-            <p>Age: <span mini:bind="age"></span></p>
-            <input mini:model="age" type="number" min="0" />
-        </div>
-    </div>
-
-    <script defer>
-    // Main app module
-    const app = mini.module('app', {
-        state: {
-            title: 'mini.js Nested Modules Demo'
-        }
-    });
-
-    // Counter module
-    const counter = mini.module('counter', {
-        state: {
-            count: 0,
-            
-            // Computed property
-            compute: {
-                isPositive: (state) => state.count === 0 ? 'zero' : (state.count > 0 ? 'positive' : 'negative')
-            }
-        }
-    });
-
-    // User module
-    const user = mini.module('user', {
-        state: {
-            name: '',
-            age: 0
-        }
-    });
-
-    // Counter module functions
-    const increase = () => counter.count = ~~counter.count + 1;
-    const decrease = () => counter.count = ~~counter.count - 1;
-
-    // Watchers
-    counter.watch('count', count => console.log('Counter updated:', count));
-    counter.watch('isPositive', value => console.log('Count status:', value));
-    user.watch('name', name => console.log('User name changed:', name));
-    user.watch('age', age => console.log('User age changed:', age));
-    </script>
-</body>
-</html>
-```
+You can also run these examples locally by opening the files in your web browser.
 
 ## Browser Support
 
