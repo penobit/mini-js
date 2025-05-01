@@ -2,6 +2,8 @@
 
 A lightweight JavaScript library that brings two-way data binding and state management to vanilla JavaScript applications. No dependencies required!
 
+> **✨ Ultra-lightweight**: The entire library is just **1.5KB** minified!
+
 ## Features
 
 - Two-way data binding
@@ -117,7 +119,7 @@ mini.module('app', {
 ### Watchers
 
 ```javascript
-const { state } = mini.module('app', {
+const state = mini.module('app', {
   state: {
     count: 0
   }
@@ -160,7 +162,7 @@ Here's a simple counter application to get you started:
     </div>
 
     <script defer>
-    const {state} = mini.module('counter', {
+    const state = mini.module('counter', {
         state: {
             message: 'Counter App',
             count: 0,
