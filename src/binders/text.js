@@ -13,19 +13,19 @@
  * @example
  * // Bind text content to a state property
  * bindText.call(state, element, "message");
- * 
+ *
  * // When the state changes, the element's text updates
  * state.message = "Hello World"; // element's text updates
  */
 export function bindText(el, prop) {
-    if (!(el instanceof HTMLElement)) {
-        throw new TypeError("el must be an HTMLElement");
-    }
-    if (typeof prop !== "string") {
-        throw new TypeError("prop must be a string");
-    }
+  if (!(el instanceof HTMLElement)) {
+    throw new TypeError('el must be an HTMLElement')
+  }
+  if (typeof prop !== 'string') {
+    throw new TypeError('prop must be a string')
+  }
 
-    const update = () => (el.textContent = this[prop]);
-    update();
-    this.watch(prop, update);
+  const update = () => (el.textContent = this[prop])
+  update()
+  this.watch(prop, update)
 }

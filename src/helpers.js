@@ -13,5 +13,5 @@
  * isObject([1, 2, 3]); // true
  */
 export function isObject(value) {
-  return value !== null && typeof value === "object";
+  return value !== null && typeof value === 'object'
 }

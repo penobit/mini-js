@@ -13,20 +13,20 @@
  * @example
  * // Bind a class attribute to a state property
  * bindAttr.call(state, element, "class:name");
- * 
+ *
  * // Bind a data attribute to a state property
  * bindAttr.call(state, element, "data-count:count");
  */
 export function bindAttr(el, expr) {
-    if (!(el instanceof HTMLElement)) {
-        throw new TypeError("el must be an HTMLElement");
-    }
-    if (typeof expr !== "string") {
-        throw new TypeError("expr must be a string");
-    }
+  if (!(el instanceof HTMLElement)) {
+    throw new TypeError('el must be an HTMLElement')
+  }
+  if (typeof expr !== 'string') {
+    throw new TypeError('expr must be a string')
+  }
 
-    const [attr, prop] = expr.split(/\s*:\s*/);
-    const update = () => el.setAttribute(attr, this[prop]);
-    update();
-    this.watch(prop, update);
+  const [attr, prop] = expr.split(/\s*:\s*/)
+  const update = () => el.setAttribute(attr, this[prop])
+  update()
+  this.watch(prop, update)
 }

@@ -11,7 +11,7 @@
  * @example
  * bindText.call(state, element, "text");
  */
-export { bindText } from './text';
+export { bindText } from './text'
 
 /**
  * Binds HTML content to a state property
@@ -21,7 +21,7 @@ export { bindText } from './text';
  * @example
  * bindHTML.call(state, element, "html");
  */
-export { bindHTML } from './html';
+export { bindHTML } from './html'
 
 /**
  * Binds reactive template strings to a state property
@@ -32,7 +32,7 @@ export { bindHTML } from './html';
  * @example
  * bindReactive.call(state, element, "Hello {name}");
  */
-export { bindReactive } from './reactive';
+export { bindReactive } from './reactive'
 
 /**
  * Binds attributes to state properties
@@ -42,7 +42,7 @@ export { bindReactive } from './reactive';
  * @example
  * bindAttr.call(state, element, "class:name");
  */
-export { bindAttr } from './attr';
+export { bindAttr } from './attr'
 
 /**
  * Binds form elements to state properties (two-way binding)
@@ -52,4 +52,4 @@ export { bindAttr } from './attr';
  * @example
  * bindModel.call(state, inputElement, "value");
  */
-export { bindModel } from './model';
+export { bindModel } from './model'

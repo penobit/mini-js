@@ -3,8 +3,8 @@
  * @module mini
  */
 
-import { createState } from './state.js';
-import { bindDOM } from './binders/dom.js';
+import { createState } from './state.js'
+import { bindDOM } from './binders/dom.js'
 
 /**
  * @typedef {Object} MiniModuleOptions
@@ -32,16 +32,16 @@ const mini = {
    * @throws {Error} If no root element is found for the module
    */
   module(name, options) {
-    const root = document.querySelector(`[mini\\:module="${name}"]`);
-    if (!root) throw new Error(`No root element found for module: ${name}`);
+    const root = document.querySelector(`[mini\\:module="${name}"]`)
+    if (!root) throw new Error(`No root element found for module: ${name}`)
 
     // Define notify after defining the state
-    const state = createState(options.state || {}, () => {}, "");
-    bindDOM.call(state, name, root);
+    const state = createState(options.state || {}, () => {}, '')
+    bindDOM.call(state, name, root)
 
-    return state;
+    return state
   },
-};
+}
 
-window.mini = mini;
-export default mini;
+window.mini = mini
+export default mini
