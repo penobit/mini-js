@@ -153,7 +153,7 @@
       const state = deepProxy(options.state || {}, () => {}, "");
       bindDOM(name, state, root);
 
-      state
+      return state
     },
   };
 })();
