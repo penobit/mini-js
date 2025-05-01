@@ -151,6 +151,24 @@ mini.module('app', {
 <img mini:attr="src: imageUrl" />
 ```
 
+#### Nested Binding
+
+```html
+<!-- Bind nested properties -->
+<p mini:bind="user.name"></p>
+<p mini:bind="user.address.street"></p>
+
+<!-- Watch for nested changes -->
+state.watch('user.name', (newName, oldName) => {
+  console.log(`Name changed from ${oldName} to ${newName}`);
+});
+
+<!-- Update nested properties -->
+state.user.name = 'John Doe';
+state.user.address.street = '123 Main St';
+```
+```
+
 #### Two-way Model Binding
 
 ```html
