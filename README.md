@@ -2,7 +2,7 @@
 
 A lightweight JavaScript library that brings two-way data binding and state management to vanilla JavaScript applications. No dependencies required!
 
-> **✨ Ultra-lightweight**: The entire library is just **1.5KB** minified!
+> **✨ Ultra-lightweight**: The entire library is just **3.01KB** minified and **1.11KB** gzipped!
 
 ## Features
 
